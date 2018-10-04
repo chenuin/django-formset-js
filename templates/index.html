@@ -27,13 +27,13 @@
 		{{ formset.management_form }}
 		<div class="row h5">
 		
-			<div class="offset-md-1 col-md-3">
+			<div class="offset-md-1 col-md">
 				Name
 			</div>
-			<div class="col-md-3">
+			<div class="col-md">
 				Phone
 			</div>
-			<div class="col-md-3">
+			<div class="col-md">
 				E-mail
 			</div>
 		</div>
@@ -50,9 +50,15 @@
 					{% endfor %}
 
 					{% for field in form.visible_fields %}
-					<div class="form-group col-md-3">
+					{% if not forloop.last %}
+					<div class="form-group col-md">
 						{{ field | add_class:'form-control' }}
 					</div>
+					{% else %}
+					<div class="d-none">
+						{{ field }}
+					</div>
+					{% endif %}
 					{% endfor %}
 				</div>
 			{% endfor %}
@@ -71,18 +77,24 @@ any scripts -->
 			{% endfor %}
 
 			{% for field in formset.empty_form.visible_fields %}
-				<div class="form-group col-md-3">
+				{% if not forloop.last %}
+				<div class="form-group col-md">
 					{{ field | add_class:'form-control' }}
 				</div>
+				{% else %}
+				<div class="d-none">
+					{{ field }}
+				</div>
+				{% endif %}
 			{% endfor %}
 	    		</div>
 		{% endescapescript %}
 		</script>
 
-		<!-- This button will add a new form when clicked -->
-		<input type="button" value="Add" class="btn btn-link" data-formset-add>
 		<div class="text-center">
-		<button id="sumbit" type="sumbit" class="btn btn-primary btn-normal">Save</button>
+			<!-- This button will add a new form when clicked -->
+			<button type="button" class="btn btn-secondary" data-formset-add><i class="fas fa-plus"></i> New</button>
+			<button id="sumbit" type="sumbit" class="btn btn-primary btn-normal">Save</button>
 		</div>
 	</form>
 </div>
